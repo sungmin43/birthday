@@ -1,0 +1,99 @@
+@font-face {
+  font-family: 'Monoton';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Monoton'), local('Monoton-Regular'), url(https://themes.googleusercontent.com/static/fonts/monoton/v4/AKI-lyzyNHXByGHeOcds_w.woff) format('woff');
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box; /* 레이아웃 계산을 편하게 함 */
+}
+
+body {
+  /* 배경 이미지 설정 */
+  background-image: url('../gift.jpg'); /* 경로 확인 필수! HTML 기준이면 'bg.jpg' */
+  background-size: cover;    /* 화면을 꽉 채움 */
+  background-position: center; /* 이미지 중앙 고정 */
+  background-attachment: fixed; /* 스크롤해도 배경 고정 */
+  background-repeat: no-repeat;
+  
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden; /* 캔버스 사용 시 스크롤 방지 */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#c {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+.text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  z-index: 10;
+  display: flex;       /* flex 박스 사용 */
+  flex-direction: column; /* 위아래 세로 배치 */
+  align-items: center;    /* 가로 중앙 정렬 */
+  gap: 20px;             /* HAPPY와 BIRTHDAY 사이의 간격 */
+  
+  pointer-events: none;
+  font-family: 'Monoton', cursive;
+  text-align: center;
+  color: rgba(210, 80, 110, 0.9); 
+  text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.8);
+  font-weight: bold;
+  font-size: 6vw; 
+  perspective: 1000px;
+}
+
+.word {
+  display: block;
+  white-space: nowrap; /* 단어가 중간에 잘리지 않게 설정 */
+}
+
+/* 1. 자바스크립트로 쪼개진 낱개 글자의 초기 상태 */
+.text span {
+  display: inline-block;
+  opacity: 0; 
+  transform: translateY(20px); /* 살짝 아래에서 대기 */
+  transition: all 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
+
+/* 2. 클래스가 붙었을 때 나타나는 효과 */
+.text.animate span {
+  opacity: 1;
+  transform: translateY(0);
+  /* 등장 후 바로 둥둥 떠다니는 애니메이션 연결 */
+  animation: float 2s ease-in-out infinite alternate;
+}
+
+/* 3. 둥둥 떠다니는 모션 정의 */
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+
+/* 모바일 전용 (화면 너비 768px 이하) */
+@media (max-width: 768px) {
+  .text {
+    font-size: 12vw; /* 휴대폰에서는 더 큼직하게 */
+    padding: 0 20px;
+    line-height: 1.2;
+  }
+}
+
+
+
