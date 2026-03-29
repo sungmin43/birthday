@@ -1,0 +1,148 @@
+*,
+*::before,
+*::after {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: url('semibg.jpg') no-repeat center center fixed;
+  background-size: cover; /* 화면 크기에 맞게 꽉 채우기 */
+}
+
+
+.container {
+  width: 90%; /* 모바일 대응 */
+  max-width: 400px;
+  height: 400px;
+  background-color: #ffffff;
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  border-radius: 8px;
+  box-shadow: 0 20px 45px rgba(200, 100, 120, 0.25);
+}
+
+.cake {
+  width: 100%;
+  position: absolute;
+  bottom: 60px;
+}
+
+.bottom-layer,
+.middle-layer,
+.top-layer {
+  height: 80px;
+  width: 240px;
+  position: relative;
+  margin: auto;
+  background-repeat: repeat;
+  background-size: 100% 100%, 60px 100px;
+  background-position: 28px 0;
+  /* 크림 + 스펀지 + 딸기 무늬 */
+  background-image: linear-gradient(
+      transparent 50px,
+      #fffaf9 50px,   /* 흰 크림층 */
+      #fffaf9 60px,
+      transparent 60px
+    ),
+    radial-gradient(circle at 30px 5px, #ff4d6d 20px, #fff5f7 21px); /* 딸기 무늬 */
+  border: 3px solid #f9d77e; /* 노란빛 스펀지 테두리 */
+  border-radius: 10px;
+  box-shadow: 0 5px 10px rgba(255, 100, 120, 0.25);
+}
+
+.middle-layer {
+  transform: scale(0.85);
+  top: 72px;
+  animation: rise-1 2s forwards;
+}
+
+@keyframes rise-1 {
+  100% {
+    top: 7px;
+  }
+}
+
+.top-layer {
+  transform: scale(0.7);
+  top: 144px;
+  animation: rise-2 2s 2s forwards;
+}
+
+@keyframes rise-2 {
+  100% {
+    top: 26px;
+  }
+}
+
+.candle {
+  background: repeating-linear-gradient(
+    45deg,
+    #fd3018 0,
+    #fd3018 5px,
+    #ffa89e 5px,
+    #ffa89e 10px
+  );
+  height: 45px;
+  width: 15px;
+  position: absolute;
+  margin: auto;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  animation: rise-3 1s 4s forwards;
+}
+
+@keyframes rise-3 {
+  100% {
+    bottom: 202px;
+  }
+}
+
+.candle:after {
+  content: "";
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  background-color: #ffee54;
+  border-radius: 0 50% 50% 50%;
+  transform: scale(0) rotate(45deg);
+  bottom: 50px;
+  left: -0.5px;
+  animation: flame 1.5s 5s forwards;
+}
+
+@keyframes flame {
+  100% {
+    transform: scale(1) rotate(45deg);
+  }
+}
+
+.cake-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.header {
+  font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', 'Nanum Gothic', sans-serif;
+  font-size: clamp(22px, 6vw, 36px);
+  text-align: center;
+  margin-bottom: 20px;
+  background: linear-gradient(90deg, #ff4d6d, #ff9aa2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  text-shadow: 2px 2px 6px rgba(255, 200, 200, 0.6);
+  animation: pop 1.5s infinite alternate;
+  position: relative;
+}
+
+
+@keyframes pop {
+  from { transform: scale(1); }
+  to { transform: scale(1.1); }
+}

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome</title>
+  <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.4.1/css/bootstrap.min.css'>
+  <link rel="stylesheet" href="particle-button/dist/style.css"> <style>
+    body { background: #000; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+  </style>
+</head>
+<body>
+
+  <div class="btn-contain">
+    <button class="btn btn-primary" id="go-btn">Click Me!</button>
+    <div class="btn-particles"></div>
+  </div>
+
+  <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js'></script>
+  <script src="particle-button/dist/script.js"></script> <script>
+    $('#go-btn').on('click', function() {
+      // 효과가 보일 수 있게 0.8초 뒤에 페이지 이동
+      setTimeout(function() {
+        window.location.href = 'main.html?play=true'; 
+      }, 800);
+    });
+  </script>
+</body>
+</html>

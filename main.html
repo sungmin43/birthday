@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Happy Birthday!</title>
+  
+  <link rel="stylesheet" href="css/style.css"> <link rel="stylesheet" href="basic-sliding-navigation/dist/style.css"> <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/flex-layout-attribute/1.0.3/css/flex-layout-attribute.min.css'>
+
+  <style>
+    /* 기본 텍스트 위치 */
+    .text {
+      position: absolute;
+      top: 45%; 
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 10;
+      text-align: center;
+      width: 100%;
+    }
+
+    /* 슬라이딩 메뉴를 감싸는 제어용 컨테이너 */
+    .menu-wrapper {
+      position: fixed;
+      bottom: 22%; /* 이미지의 빨간 원 위치 (선물 상자 위) */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 90%;
+      max-width: 400px;
+      z-index: 100;
+
+      /* 3초 전에는 숨김 처리 */
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 1s ease, transform 1s ease;
+    }
+
+    /* 3초 뒤 나타날 때의 효과 */
+    .menu-wrapper.show {
+      opacity: 1;
+      visibility: visible;
+      transform: translateX(-50%) translateY(-10px); /* 살짝 위로 올라오며 등장 */
+    }
+  </style>
+</head>
+<body>
+  <canvas id="c"></canvas>
+  
+  <div class="text">
+    <div class="word">HAPPY</div>
+    <div class="word">BIRTHDAY!</div>
+  </div>
+
+  <div class="menu-wrapper" id="menuWrapper">
+    <div class="container">
+      <div class="selector" self="size-x1" layout="row center-left">
+        <div class="highlight"></div>
+        <div class="selector-item" onclick="selectItem(event)">Letter</div>
+        <div class="selector-item" onclick="selectItem(event)">Cake</div>
+        <div class="selector-item" onclick="selectItem(event)">Stroy</div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- 오디오 및 서브버튼 띄우기-->
+  <audio id="birthdayAudio" loop>
+    <source src="birthSong.mp3" type="audio/mpeg">
+  </audio>
+
+  <script src="js/index.js"></script> <script src="basic-sliding-navigation/dist/script.js"></script>   <script>
+    window.onload = function() {
+      // 1. 오디오 재생 (브라우저 정책 대응)
+      const audio = document.getElementById('birthdayAudio');
+      audio.play().catch(() => {
+          document.body.addEventListener('click', () => audio.play(), {once: true});
+      });
+
+      // 2. 핵심: 문구 올라오고 3초 뒤 메뉴 등장
+      setTimeout(() => {
+        const wrapper = document.getElementById('menuWrapper');
+        wrapper.classList.add('show');
+      }, 3000); // 3000ms = 3초
+    };
+  </script>
+
+
+
+  <!-- main.html 안에 추가 -->
+  <div id="overlay" style="
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    display: none;
+    z-index: 200;
+    text-align: center; /* 중앙 정렬 */
+  ">
+    <iframe id="overlayFrame" src="" style="
+      width: 80%; height: 80%;
+      margin: 5% auto 0 auto;
+      display: block;
+      border: none;
+      background: #fff;
+      border-radius: 10px;
+    "></iframe>
+    
+    <!-- 닫기 버튼을 iframe 아래 중앙에 배치 -->
+    <button onclick="closeOverlay()" style="
+      margin-top: 10px;
+      padding: 8px 12px; background: red; color: white;
+      border: none; border-radius: 5px; cursor: pointer;
+      display: inline-block;
+    ">닫기</button>
+  </div>  
+
+<script>
+  function selectItem(event) {
+    const selected = event.target.innerText;
+
+    if (selected === "Cake") {
+      openOverlay("cake.html");
+    } else if (selected === "Letter") {
+      openOverlay("letter.html");
+    } else if (selected === "Story") {
+      openOverlay("Story.html");
+    }
+  }
+
+  function openOverlay(page) {
+    const overlay = document.getElementById("overlay");
+    const frame = document.getElementById("overlayFrame");
+    frame.src = page;
+    overlay.style.display = "block";
+  }
+
+  function closeOverlay() {
+    const overlay = document.getElementById("overlay");
+    const frame = document.getElementById("overlayFrame");
+    frame.src = ""; // 닫을 때 iframe 비움
+    overlay.style.display = "none";
+  }
+</script>
+
+
+
+
+</body>
+</html>
